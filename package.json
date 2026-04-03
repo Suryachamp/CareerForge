@@ -1,0 +1,25 @@
+{
+  "name": "genai",
+  "version": "1.0.0",
+  "description": "This project is a full-stack application developed with the help of AI.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Suryachamp/GenAI-full-stack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Suryachamp/GenAI-full-stack/issues"
+  },
+  "homepage": "https://github.com/Suryachamp/GenAI-full-stack#readme",
+  "dependencies": {
+    "dotenv": "^17.4.0",
+    "express": "^5.2.1",
+    "mongoose": "^9.3.3"
+  }
+}
