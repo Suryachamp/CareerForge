@@ -4,7 +4,8 @@
   "description": "This project is a full-stack application developed with the help of AI.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon server.js"
   },
   "repository": {
     "type": "git",
