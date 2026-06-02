@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-whitesmoke: whitesmoke;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    @apply h-full bg-[#1b1b1b] text-whitesmoke font-sans;
+  }
+}
