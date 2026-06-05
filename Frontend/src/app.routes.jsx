@@ -10,5 +10,8 @@ export const router = createBrowserRouter([
     {
         path:"/Register",
         element:<Register/>
+    },{
+        path:"/",
+        element:<h1>Home page</h1>
     }
 ])

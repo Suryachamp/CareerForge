@@ -1,17 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate,Link } from 'react-router';
+import { useAuth } from '../hooks/use.auth';
+
 
 
 const Login = () => {
 
-  const navigate=useNavigate();
+  const {loading,handleLogin} = useAuth()
+  const navigate = useNavigate()
+  const[email,setEmail]=useState("")
+  const[password,setPassword]=useState("")
+
 
   const handleSubmit=(e)=>{
     e.preventDefault();
+    handleLogin({email,password});
+    navigate("/");
   }
 
-  const handleoutput=()=>{
-    console.log("button clicked")
+  if(loading){
+    return (
+      <main> 
+        <h1>Loading...</h1>
+      </main>
+    )
   }
 
   return (
@@ -24,15 +36,15 @@ const Login = () => {
 
           <div className="input-group flex flex-col gap-2">
             <label htmlFor="email">Email</label>
-            <input className='input primary bg-white text-black p-2 rounded-lg outline-none' type='email' id='email' name='email' placeholder='Enter email address'/>
+            <input value={email} onChange={(e)=>setEmail(e.target.value)} className='input primary bg-white text-black p-2 rounded-lg outline-none' type='email' id='email' name='email' placeholder='Enter email address'/>
           </div>
 
           <div className='input-group flex flex-col gap-2 pb-3'>
             <label htmlFor='password'>Password</label>
-            <input className='input primary bg-white text-black p-2 rounded-lg outline-none' type='password' id='password' name='password' placeholder='Enter password'/>
+            <input value={password} onChange={(e)=>setPassword(e.target.value)} className='input primary bg-white text-black p-2 rounded-lg outline-none' type='password' id='password' name='password' placeholder='Enter password'/>
           </div>
 
-          <button onClick={handleoutput} className="button primary-button bg-red-500 text-black p-2 rounded-lg border-none outline-none cursor-pointer transition-colors duration-300 ease-in-out hover:bg-red-600 hover:text-white">
+          <button type="submit" className="button primary-button bg-red-500 text-black p-2 rounded-lg border-none outline-none cursor-pointer transition-colors duration-300 ease-in-out hover:bg-red-600 hover:text-white">
             Login
           </button>
 

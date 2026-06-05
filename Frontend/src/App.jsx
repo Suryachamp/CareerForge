@@ -2,7 +2,7 @@ import React from 'react'
 import "./index.css";
 import {RouterProvider} from "react-router"
 import { router } from './app.routes.jsx';
-import { AuthProvider } from './features/auth/services/auth.context.js';
+import { AuthProvider } from './features/auth/services/auth.context.jsx';
 
 const App = () => {
   return (
