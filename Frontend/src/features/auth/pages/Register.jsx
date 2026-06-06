@@ -12,10 +12,14 @@ const Register = () => {
   const[password,setPassword]=useState("")
   const[rePassword,setRePassword]=useState("")
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault();
-    handleRegister({username,email,password,rePassword,phone})
-    navigate("/")
+    const response =await handleRegister({username,email,password,rePassword,phone})
+    if(response.success){
+      navigate("/")
+    }else{
+      console.log(response.error)
+    }
   }
 
   if(loading){
@@ -65,7 +69,7 @@ const Register = () => {
             <input value={rePassword} onChange={(e)=>setRePassword(e.target.value)} className='input primary bg-white text-black p-2 rounded-lg outline-none' type='password' id='re-password' name='re-password' placeholder='Enter password'/>
           </div>
 
-          <button onClick={handleoutput} className="button primary-button bg-red-500 text-black p-2 rounded-lg border-none outline-none cursor-pointer transition-colors duration-300 ease-in-out hover:bg-red-600 hover:text-white">
+          <button type="submit" className="button primary-button bg-red-500 text-black p-2 rounded-lg border-none outline-none cursor-pointer transition-colors duration-300 ease-in-out hover:bg-red-600 hover:text-white">
             Register
           </button>
 

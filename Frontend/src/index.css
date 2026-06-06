@@ -8,6 +8,6 @@
   html,
   body,
   #root {
-    @apply h-full bg-[#1b1b1b] text-whitesmoke font-sans;
+    @apply h-full bg-[#1b1b1b] text-whitesmoke font-sans flex items-center justify-center;
   }
 }
