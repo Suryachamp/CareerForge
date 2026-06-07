@@ -13,9 +13,11 @@ app.use(cookieParser());
 
 // REQUIRE ALL THE ROUTES HERE
 const authRouter=require("./routes/auth.routes");
+const interviewRouter=require("./routes/interview.routes")
 
 
 // USING ALL THE ROUTES HERE
 app.use("/api/auth",authRouter); 
+app.use("/api/interview",interviewRouter);
 
 module.exports = app;
