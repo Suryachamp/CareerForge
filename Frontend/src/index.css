@@ -1,13 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
+
 @import "tailwindcss";
 
 @theme {
-  --color-whitesmoke: whitesmoke;
+  --font-sans: 'DM Sans', sans-serif;
 }
 
 @layer base {
   html,
   body,
   #root {
-    @apply h-full bg-[#1b1b1b] text-whitesmoke font-sans flex items-center justify-center;
+    @apply h-full bg-[#f7f5f0] text-[#2d2a26] font-sans m-0 p-0;
+  }
+
+  /* Prevent horizontal scroll globally */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: rgba(180, 140, 95, 0.2);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(45, 42, 38, 0.12);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(45, 42, 38, 0.22);
   }
 }

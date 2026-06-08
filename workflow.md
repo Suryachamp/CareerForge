@@ -101,7 +101,7 @@ Whenever the user refreshes the page, the frontend must verify if they are still
 
 This maps out the deepest, most complex pipeline in the application: converting a PDF and text input into a structured AI-generated assessment.
 
-#### Phase 1: Frontend Data Collection (Upcoming)
+#### Phase 1: Frontend Data Collection
 1. User navigates to the Interview Generation page.
 2. User fills out two text fields (`selfDescription`, `jobDescription`) and uploads a PDF file (`resume`).
 3. Frontend packages this into a `FormData` object (because it contains a binary file).
@@ -129,25 +129,25 @@ This maps out the deepest, most complex pipeline in the application: converting 
 #### Phase 4: AI Processing via Gemini API
 1. **Service (`ai.service.js`)**:
    - Interpolates the `resume`, `selfDescription`, and `jobDescription` strings into a strict, highly engineered AI prompt.
-   - Defines a `Zod` schema (`interviewReportSchema`) that dictates the exact JSON structure the AI must return (Match Score, Technical Questions, Behavioral Questions, Skill Gaps, Preparation Plan).
-   - Converts the Zod schema to a JSON schema (`zodToJsonSchema`).
-   - Sends the request to the `gemini-2.5-flash` model.
+   - Defines a native `Type` schema from `@google/genai` (`interviewReportSchema`) that dictates the exact JSON structure the AI must return (Match Score, Technical Questions, Behavioural Questions, Skill Gaps, Preparation Plan).
+   - Sends the request to the `gemini-2.5-flash` model with `responseMimeType: "application/json"` and `responseSchema`.
    - **Error Handling**: Wraps the network call in a `try...catch` block. If Google servers return a `503 Overload` or `429 Quota Exceeded`, it catches the error to prevent the Node.js process from crashing.
    - Parses the returned string into a native JavaScript object (`JSON.parse(response.text)`).
 
-#### Phase 5: Persistence & Response (Upcoming Implementation)
+#### Phase 5: Persistence & Response
 1. **Database Persistence (`interviewreport.model.js`)**:
    - The controller receives the parsed JSON object from the AI service.
+   - It normalizes the data to match the database schemas (technical questions, behavioural questions, skill gaps, preparation plan).
    - It instantiates a new `InterviewReport` Mongoose document.
    - It ties the report to the current user's ID (`req.user._id` from the auth middleware).
    - Saves the document to MongoDB.
 2. **Client Response**:
-   - The controller sends a `200 OK` response with the structured JSON report back to the frontend.
+   - The controller sends a `201 Created` response with the structured JSON report back to the frontend.
 3. **Frontend Rendering**:
    - React receives the JSON.
-   - Dynamically maps over the `preparationPlan` array to render a 5-day timeline component.
-   - Uses a charting library or CSS progress bar to display the `matchScore`.
-   - Maps over the `technicalQuestions` to create interactive flashcards or expanding accordions.
+   - Dynamically maps over the `preparationPlan` array to render a timeline component.
+   - Displays the `matchScore` visually.
+   - Maps over the `technicalQuestions` and `behaviouralQuestionsSchema` to create expanding accordions.
 
 ---
 
