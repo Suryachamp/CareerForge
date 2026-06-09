@@ -12,7 +12,11 @@ export const useAuth = () => {
             const data = await login({ email, password });
             if (data && data.user) {
                 setUser(data.user);
+                return { success: true, user: data.user };
             }
+            return { success: false, error: data?.message || "Failed to login" };
+        } catch (err) {
+            return { success: false, error: err.message };
         } finally {
             setLoading(false);
         }
@@ -24,7 +28,11 @@ export const useAuth = () => {
             const data = await register({ username, email, password });
             if (data && data.user) {
                 setUser(data.user);
+                return { success: true, user: data.user };
             }
+            return { success: false, error: data?.message || "Failed to register" };
+        } catch (err) {
+            return { success: false, error: err.message };
         } finally {
             setLoading(false);
         }
@@ -42,9 +50,16 @@ export const useAuth = () => {
 
     useEffect(()=>{
         const getAndsetUser = async()=>{
-            const data=await getMe()
-            setUser(data.user)
-            setLoading(false)
+            try {
+                const data = await getMe()
+                if (data && data.user) {
+                    setUser(data.user)
+                }
+            } catch (err) {
+                console.error("getMe error:", err);
+            } finally {
+                setLoading(false)
+            }
         }
         getAndsetUser() 
     },[])
