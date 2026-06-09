@@ -10,7 +10,7 @@
   html,
   body,
   #root {
-    @apply h-full bg-[#f7f5f0] text-[#2d2a26] font-sans m-0 p-0;
+    @apply h-full bg-[#0b0f19] text-[#f3f4f6] font-sans m-0 p-0;
   }
 
   /* Prevent horizontal scroll globally */
@@ -19,7 +19,7 @@
   }
 
   ::selection {
-    background-color: rgba(180, 140, 95, 0.2);
+    background-color: rgba(244, 63, 94, 0.2);
   }
 
   ::-webkit-scrollbar {
@@ -29,10 +29,10 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(45, 42, 38, 0.12);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(45, 42, 38, 0.22);
+    background: rgba(255, 255, 255, 0.2);
   }
 }
