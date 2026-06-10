@@ -18,4 +18,16 @@ interviewRouter.post(
   interviewController.generateInterviewReportController,
 );
 
+interviewRouter.get(
+  "/",
+  authMiddleware.authUser,
+  interviewController.getAllInterviewReportsController,
+);
+
+interviewRouter.get(
+  "/:id",
+  authMiddleware.authUser,
+  interviewController.getInterviewReportController,
+);
+
 module.exports = interviewRouter;

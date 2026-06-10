@@ -128,28 +128,31 @@ function createObjectFromString(str, type) {
 
 async function generateInterviewReportController(req, res) {
   try {
-    const pdfResult = await new pdfParse.PDFParse(
-      new Uint8Array(req.file.buffer)
-    ).getText();
-
-    // Extract the actual text string from the PDF result
     let resumeText = "";
-    if (typeof pdfResult === "string") {
-      resumeText = pdfResult;
-    } else if (pdfResult && typeof pdfResult.text === "string") {
-      resumeText = pdfResult.text;
-    } else if (pdfResult && Array.isArray(pdfResult.pages)) {
-      // Fallback: combine text from all pages
-      resumeText = pdfResult.pages
-        .map((p) => (typeof p === "string" ? p : p.text || ""))
-        .join("\n");
-    } else {
-      // Last resort: stringify it
-      resumeText = JSON.stringify(pdfResult);
-    }
 
-    console.log("Resume text length:", resumeText.length);
-    console.log("Resume text preview:", resumeText.substring(0, 200) + "...");
+    if (req.file) {
+      const pdfResult = await new pdfParse.PDFParse(
+        new Uint8Array(req.file.buffer)
+      ).getText();
+
+      // Extract the actual text string from the PDF result
+      if (typeof pdfResult === "string") {
+        resumeText = pdfResult;
+      } else if (pdfResult && typeof pdfResult.text === "string") {
+        resumeText = pdfResult.text;
+      } else if (pdfResult && Array.isArray(pdfResult.pages)) {
+        // Fallback: combine text from all pages
+        resumeText = pdfResult.pages
+          .map((p) => (typeof p === "string" ? p : p.text || ""))
+          .join("\n");
+      } else {
+        // Last resort: stringify it
+        resumeText = JSON.stringify(pdfResult);
+      }
+
+      console.log("Resume text length:", resumeText.length);
+      console.log("Resume text preview:", resumeText.substring(0, 200) + "...");
+    }
 
     const { selfDescription, jobDescription } = req.body;
 
@@ -204,4 +207,43 @@ async function generateInterviewReportController(req, res) {
   }
 }
 
-module.exports = { generateInterviewReportController };
+async function getInterviewReportController(req, res) {
+  try {
+    const { id } = req.params;
+    const interviewReport = await interviewReportModel.findOne({
+      _id: id,
+      user: req.user.id,
+    });
+
+    if (!interviewReport) {
+      return res.status(404).json({ message: "Interview report not found" });
+    }
+
+    return res.status(200).json({
+      message: "Interview report retrieved successfully",
+      interviewReport,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+async function getAllInterviewReportsController(req, res) {
+  try {
+    const reports = await interviewReportModel.find({ user: req.user.id }).sort({ createdAt: -1 });
+    return res.status(200).json({
+      message: "All interview reports retrieved successfully",
+      reports,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+module.exports = {
+  generateInterviewReportController,
+  getInterviewReportController,
+  getAllInterviewReportsController,
+};
