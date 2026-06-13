@@ -11,7 +11,7 @@ const Navbar = () => {
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-2 font-extrabold text-white text-lg tracking-tight">
           <span className="text-rose-500 text-xl">★</span>
-          <span>InterviewAI</span>
+          <span>CareerForge</span>
         </Link>
 
         {/* Navigation Links */}

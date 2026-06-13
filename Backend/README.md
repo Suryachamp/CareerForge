@@ -1,21 +1,16 @@
-# GenAI Project
+# 🔌 CareerForge Backend Services
 
-This project is a full-stack application developed with the help of AI.
+This directory contains the Node.js, Express, and Mongoose source code that powers the CareerForge AI Career & Resume Suite.
 
-## Setup
+## Quick Start
 
 1. Install dependencies:
    ```bash
    npm install
    ```
-
-2. Run development server:
+2. Start development server:
    ```bash
    npm run dev
    ```
 
-## Development Workflow
-
-- Commits are made daily to ensure code is up to date on GitHub.
-- Standard utility-first CSS with Tailwind CSS v4 is used for styling.
-- Backend is powered by Node.js.
+For full setup guidelines, API configuration parameters, and workflow descriptions, please refer to the primary [Root README.md](../README.md).

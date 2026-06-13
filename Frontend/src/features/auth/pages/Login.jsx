@@ -37,7 +37,7 @@ const Login = () => {
           <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
             <span className="text-[12px] text-rose-400 font-bold">★</span>
           </div>
-          <span className="text-[16px] font-bold text-white tracking-wide">InterviewAI</span>
+          <span className="text-[16px] font-bold text-white tracking-wide">CareerForge</span>
         </div>
 
         {/* Card */}

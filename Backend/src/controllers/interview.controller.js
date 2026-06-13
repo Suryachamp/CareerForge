@@ -1,6 +1,7 @@
 const pdfParse = require("pdf-parse");
 const generateInterviewReportFunction = require("../services/ai.service");
 const interviewReportModel = require("../models/interviewreport.model");
+const mongoose = require("mongoose");
 
 /**
  * Normalize an array of items from the AI response.
@@ -190,10 +191,7 @@ async function generateInterviewReportController(req, res) {
       ),
     };
 
-    console.log(
-      "Normalized data for DB:",
-      JSON.stringify(normalizedData, null, 2)
-    );
+    console.log("Saving interview report to database...");
 
     const interviewReport = await interviewReportModel.create(normalizedData);
 
@@ -210,10 +208,9 @@ async function generateInterviewReportController(req, res) {
 async function getInterviewReportController(req, res) {
   try {
     const { id } = req.params;
-    const interviewReport = await interviewReportModel.findOne({
-      _id: id,
-      user: req.user.id,
-    });
+    const isMongoId = mongoose.Types.ObjectId.isValid(id);
+    const query = isMongoId ? { _id: id, user: req.user.id } : { uuid: id, user: req.user.id };
+    const interviewReport = await interviewReportModel.findOne(query);
 
     if (!interviewReport) {
       return res.status(404).json({ message: "Interview report not found" });

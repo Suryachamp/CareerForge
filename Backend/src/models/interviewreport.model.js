@@ -122,6 +122,11 @@ const interviewReportSchema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"users"
+    },
+    uuid:{
+        type:String,
+        unique:true,
+        default:() => require("crypto").randomUUID()
     }
 },{
     timestamps:true

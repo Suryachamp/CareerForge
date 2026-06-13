@@ -84,6 +84,12 @@ const Dashboard = () => {
               View History
             </Link>
             <Link
+              to="/resume/new"
+              className="px-4 py-2.5 bg-gray-800 hover:bg-gray-750 text-gray-300 hover:text-white border border-gray-750 rounded-xl text-xs font-bold transition-colors"
+            >
+              ★ Build ATS Resume
+            </Link>
+            <Link
               to="/"
               className="px-4 py-2.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition-all shadow-lg shadow-rose-600/10"
             >
@@ -178,8 +184,8 @@ const Dashboard = () => {
                   <div className="flex flex-col gap-3.5">
                     {reports.slice(0, 4).map((report) => (
                       <div
-                        key={report._id}
-                        onClick={() => navigate(`/interview/${report._id}`)}
+                        key={report.uuid || report._id}
+                        onClick={() => navigate(`/interview/${report.uuid || report._id}`)}
                         className="bg-gray-900/40 hover:bg-gray-900/80 border border-gray-800/80 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-colors group"
                       >
                         <div className="min-w-0 flex-grow pr-4">

@@ -38,8 +38,8 @@ const Home = () => {
       }
 
       const response = await generateInterviewReport(formData);
-      if (response && response.interviewReport && response.interviewReport._id) {
-        navigate(`/interview/${response.interviewReport._id}`);
+      if (response && response.interviewReport && (response.interviewReport.uuid || response.interviewReport._id)) {
+        navigate(`/interview/${response.interviewReport.uuid || response.interviewReport._id}`);
       } else {
         setError("Failed to generate interview report. Invalid response received.");
       }

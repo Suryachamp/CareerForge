@@ -1,6 +1,6 @@
 # Comprehensive Application Workflow & Architecture Guide
 
-This document provides a highly detailed, step-by-step technical map of the MERN + GenAI application. It is designed to act as a definitive reference guide so that any developer can understand exactly how data flows from the user interface all the way to the database and external AI APIs.
+This document provides a highly detailed, step-by-step technical map of the CareerForge application. It is designed to act as a definitive reference guide so that any developer can understand exactly how data flows from the user interface all the way to the database and external AI APIs.
 
 Whenever a new feature is added, this document should be referenced and updated to maintain architectural clarity.
 
@@ -19,7 +19,7 @@ Whenever a new feature is added, this document should be referenced and updated 
    - **Routing Layer**: Maps HTTP endpoints to specific controller functions.
    - **Middleware Layer**: Intercepts requests for authentication and file parsing.
    - **Controller Layer**: Contains the core business logic.
-   - **Service Layer**: Handles external API integrations (e.g., Gemini).
+   - **Service Layer**: Handles external AI API integrations.
 
 3. **Data Layer (MongoDB & Mongoose)**
    - Defines strict schemas for documents (`User`, `InterviewReport`).
@@ -126,12 +126,12 @@ This maps out the deepest, most complex pipeline in the application: converting 
    - `pdf-parse` reads the binary PDF data and synchronously converts it into raw UTF-8 string text (`resumeContent`).
    - The controller then calls `generateInterviewReport(resumeContent, selfDescription, jobDescription)` from the AI service.
 
-#### Phase 4: AI Processing via Gemini API
+#### Phase 4: AI Processing via AI Service
 1. **Service (`ai.service.js`)**:
    - Interpolates the `resume`, `selfDescription`, and `jobDescription` strings into a strict, highly engineered AI prompt.
-   - Defines a native `Type` schema from `@google/genai` (`interviewReportSchema`) that dictates the exact JSON structure the AI must return (Match Score, Technical Questions, Behavioural Questions, Skill Gaps, Preparation Plan).
-   - Sends the request to the `gemini-2.5-flash` model with `responseMimeType: "application/json"` and `responseSchema`.
-   - **Error Handling**: Wraps the network call in a `try...catch` block. If Google servers return a `503 Overload` or `429 Quota Exceeded`, it catches the error to prevent the Node.js process from crashing.
+   - Defines a native structured JSON schema that dictates the exact response structure the AI must return (Match Score, Technical Questions, Behavioural Questions, Skill Gaps, Preparation Plan).
+   - Sends the request to the AI model using structured JSON response configurations.
+   - **Error Handling**: Wraps the network call in a `try...catch` block. If AI servers return an overload or quota exceeded error, it catches the error to prevent the Node.js process from crashing.
    - Parses the returned string into a native JavaScript object (`JSON.parse(response.text)`).
 
 #### Phase 5: Persistence & Response
@@ -148,6 +148,41 @@ This maps out the deepest, most complex pipeline in the application: converting 
    - Dynamically maps over the `preparationPlan` array to render a timeline component.
    - Displays the `matchScore` visually.
    - Maps over the `technicalQuestions` and `behaviouralQuestionsSchema` to create expanding accordions.
+
+---
+
+### 4. ATS Resume Builder & Real-Time Compiler Workflow
+
+This maps out the workflow for building, optimizing, compiling, and reviewing resumes:
+
+#### Phase 1: Frontend Form Collection & Target Role Submission
+1. User navigates to `/resume/new`.
+2. User fills in personal details, skills, experience, projects, education, and target job description.
+3. On submission, the form data is parsed and sent via `POST /api/resume/optimize` to the backend.
+
+#### Phase 2: AI Prompt Engineering & Resume Generation
+1. **Backend Controller (`resume.controller.js`)**:
+   - Captures form fields and target job description from `req.body`.
+   - Delegates optimization to `ai.service.js`.
+2. **AI Service (`ai.service.js`)**:
+   - Compiles user profile details and templates.
+   - Instructs the AI model to optimize the resume fields specifically matching keywords from the job description, compute an ATS score estimate, and generate structural source code using the standard template.
+   - Returns a structured JSON containing the computed score, tailoring suggestions, and compiled source code.
+
+#### Phase 3: DB Persistence & Redirect
+1. The backend controller saves the optimized document to MongoDB, associated with the user's ID.
+2. The server responds with the saved resume document.
+3. The frontend receives the response and redirects the user to the interactive workspace at `/resume/:id`.
+
+#### Phase 4: Split Editor & Real-Time Client-Side Parsing
+1. The workspace at `/resume/:id` mounts with the source code editor on the left and preview pane on the right.
+2. **Left Editor Pane**:
+   - Pre-renders syntax-highlighted source code matching the theme.
+   - Captures user edits and updates local react state.
+3. **Right Preview Pane**:
+   - The user triggers a recompile action by clicking the Compile button.
+   - A client-side parser parses the source commands into clean HTML elements.
+   - Renders the structured preview formatted as an A4 document template.
 
 ---
 
