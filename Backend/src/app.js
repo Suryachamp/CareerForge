@@ -5,7 +5,15 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"], // Support both localhost and 127.0.0.1 loopbacks
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+      if (isLocalhost) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true, // Crucial for allowing cookies (like your auth tokens) to be sent
   }),
 );
