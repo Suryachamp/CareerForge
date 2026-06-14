@@ -1,5 +1,5 @@
 {
-  "name": "genai",
+  "name": "careerforge-backend",
   "version": "1.0.0",
   "description": "This project is a full-stack application developed with the help of AI.",
   "main": "index.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Suryachamp/GenAI-full-stack"
+    "url": "git+https://github.com/Suryachamp/CareerForge"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Suryachamp/GenAI-full-stack/issues"
+    "url": "https://github.com/Suryachamp/CareerForge/issues"
   },
-  "homepage": "https://github.com/Suryachamp/GenAI-full-stack#readme",
+  "homepage": "https://github.com/Suryachamp/CareerForge#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
