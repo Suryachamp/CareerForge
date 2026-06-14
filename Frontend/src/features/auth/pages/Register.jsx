@@ -10,14 +10,20 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await handleRegister({ username, email, password, rePassword, phone });
+    if (password !== rePassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    setError("");
+    const response = await handleRegister({ username, email, password });
     if (response.success) {
       navigate("/");
     } else {
-      console.log(response.error);
+      setError(response.error || "Failed to register");
     }
   };
 
@@ -49,6 +55,12 @@ const Register = () => {
         <div className="bg-[#111827] border border-gray-800 rounded-2xl p-8 shadow-2xl">
           <h1 className="text-[22px] font-extrabold text-white text-center mb-1">Create your account</h1>
           <p className="text-[13px] text-gray-400 text-center mb-8">Start your interview preparation journey</p>
+
+          {error && (
+            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[13px] rounded-xl p-3.5 mb-6 text-center font-semibold">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 

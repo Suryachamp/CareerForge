@@ -7,12 +7,16 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     const result = await handleLogin({ email, password });
     if (result && result.success) {
       navigate("/");
+    } else {
+      setError(result?.error || "Failed to login");
     }
   };
 
@@ -44,6 +48,12 @@ const Login = () => {
         <div className="bg-[#111827] border border-gray-800 rounded-2xl p-8 shadow-2xl">
           <h1 className="text-[22px] font-extrabold text-white text-center mb-1">Welcome back</h1>
           <p className="text-[13px] text-gray-400 text-center mb-8">Sign in to continue preparing</p>
+
+          {error && (
+            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[13px] rounded-xl p-3.5 mb-6 text-center font-semibold">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
