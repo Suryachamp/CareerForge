@@ -99,41 +99,43 @@ const Interview = () => {
     <div className="min-h-screen bg-[#0b0f19] text-gray-300 font-sans flex flex-col">
       <Navbar />
       {/* Top Navbar */}
-      <header className="border-b border-gray-800 bg-[#111827]/60 backdrop-blur px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate("/")}
-            className="p-2 bg-gray-800/40 hover:bg-gray-800 rounded-lg text-gray-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-          </button>
-          <div>
-            <h1 className="text-base font-bold text-white leading-tight">AI Interview Coach</h1>
-            <p className="text-[11px] text-rose-500 font-semibold tracking-wide uppercase">Custom Preparation Strategy</p>
+      <header className="border-b border-gray-800 bg-[#111827]/60 backdrop-blur py-4">
+        <div className="max-w-[1400px] w-full mx-auto px-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate("/")}
+              className="p-2 bg-gray-800/40 hover:bg-gray-800 rounded-lg text-gray-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+            </button>
+            <div>
+              <h1 className="text-base font-bold text-white leading-tight">AI Interview Coach</h1>
+              <p className="text-[11px] text-rose-500 font-semibold tracking-wide uppercase">Custom Preparation Strategy</p>
+            </div>
           </div>
-        </div>
 
-        {/* Global Match Score Card */}
-        <div className="flex items-center gap-4 bg-gray-900/60 border border-gray-800/80 px-4 py-2 rounded-xl">
-          <div className="text-right">
-            <span className="text-[10px] text-gray-500 block font-bold uppercase tracking-wider">Profile Match</span>
-            <span className="text-sm font-extrabold text-white">{report.matchScore}%</span>
-          </div>
-          <div className="w-8 h-8 rounded-full border-2 border-rose-500/20 flex items-center justify-center relative">
-            <svg className="w-full h-full transform -rotate-90">
-              <circle
-                cx="16"
-                cy="16"
-                r="13"
-                className="stroke-rose-500"
-                strokeWidth="2.5"
-                fill="transparent"
-                strokeDasharray={`${2 * Math.PI * 13}`}
-                strokeDashoffset={`${2 * Math.PI * 13 * (1 - report.matchScore / 100)}`}
-              />
-            </svg>
+          {/* Global Match Score Card */}
+          <div className="flex items-center gap-4 bg-gray-900/60 border border-gray-800/80 px-4 py-2 rounded-xl">
+            <div className="text-right">
+              <span className="text-[10px] text-gray-500 block font-bold uppercase tracking-wider">Profile Match</span>
+              <span className="text-sm font-extrabold text-white">{report.matchScore}%</span>
+            </div>
+            <div className="w-8 h-8 rounded-full border-2 border-rose-500/20 flex items-center justify-center relative">
+              <svg className="w-full h-full transform -rotate-90">
+                <circle
+                  cx="16"
+                  cy="16"
+                  r="13"
+                  className="stroke-rose-500"
+                  strokeWidth="2.5"
+                  fill="transparent"
+                  strokeDasharray={`${2 * Math.PI * 13}`}
+                  strokeDashoffset={`${2 * Math.PI * 13 * (1 - report.matchScore / 100)}`}
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </header>
