@@ -34,10 +34,13 @@ The sequence of events when the backend server boots up (`npx nodemon server.js`
 
 1. **Environment Setup (`server.js`)**: 
    - `require("dotenv").config()` is executed first to inject secrets (API Keys, JWT Secrets, Mongo URIs) into `process.env`.
-2. **Database Connection (`config/db.js`)**:
+2. **Database Connection & Self-Repair Migration (`config/db.js`)**:
    - `server.js` calls `connectToDB()`.
    - Mongoose attempts an asynchronous connection to the MongoDB Atlas cluster using `process.env.MONGO_URI`.
    - On success, it logs `"connected to Database"`.
+   - **Database Auto-Migration Routines**:
+     - **Resume Model Migration**: Checks for any existing resume documents missing a `uuid` field. Generates a new cryptographically secure UUID (`crypto.randomUUID()`) and saves them.
+     - **Interview Report Model Migration**: Scans for any interview reports that do not possess a `uuid` field, generates a persistent UUID for each, and saves them. This prevents temporary client-side in-memory ID generation that leads to 404s when loading detailed prep plans from history.
 3. **Application Configuration (`src/app.js`)**:
    - `server.js` imports the `app` instance.
    - **Global Middlewares Applied**:
