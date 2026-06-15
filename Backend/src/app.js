@@ -8,7 +8,8 @@ app.use(
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
       const isLocalhost = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
-      if (isLocalhost) {
+      const isVercel = /\.vercel\.app$/.test(origin); // Allow any Vercel deployment dynamically
+      if (isLocalhost || isVercel) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
