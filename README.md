@@ -106,3 +106,12 @@ You can run the entire CareerForge suite (frontend, backend, and all configurati
 
 ## 📐 Architecture & Workflows
 For a detailed step-by-step mapping of the technical architecture, data flows, and route mappings, refer to [workflow.md](file:///home/surya-sekhar-prajapati/Downloads/d%20drive/GenAI/workflow.md).
+
+---
+
+## 📄 License & Authorship
+
+Copyright © 2026 Surya Sekhar Prajapati. All rights reserved.
+
+This project is licensed under a custom attribution license. Anyone is free to deploy, use, and share this software for educational and personal purposes. However, no one may copy, modify, or distribute this repository while claiming authorship, copyright, or ownership over it. All copies must explicitly credit **Surya Sekhar Prajapati** as the original creator. For details, see the [LICENSE](file:///home/surya-sekhar-prajapati/Downloads/d%20drive/GenAI/LICENSE) file.
+
