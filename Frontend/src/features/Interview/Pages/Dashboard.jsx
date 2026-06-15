@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router";
 import Navbar from "../../../components/Navbar";
 import { getAllInterviewReports } from "../Services/interview.api";

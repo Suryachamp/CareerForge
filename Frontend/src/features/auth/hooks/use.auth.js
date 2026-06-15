@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { AuthContext } from "../services/auth.context";
+import { AuthContext } from "../services/auth.context.js";
 import { login, logout, register, getMe } from "../services/auth.api";
 
 export const useAuth = () => {
@@ -62,7 +62,7 @@ export const useAuth = () => {
       }
     };
     getAndsetUser();
-  }, []);
+  }, [setUser, setLoading]);
 
   return { user, loading, handleLogin, handleRegister, handleLogout };
 };

@@ -18,7 +18,7 @@ export async function register({ username, email, password }) {
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error(err.response?.data?.message || "Registration failed. Please try again.");
+    throw new Error(err.response?.data?.message || "Registration failed. Please try again.", { cause: err });
   }
 }
 
@@ -31,7 +31,7 @@ export async function login({ email, password }) {
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error(err.response?.data?.message || "Login failed. Please check your credentials.");
+    throw new Error(err.response?.data?.message || "Login failed. Please check your credentials.", { cause: err });
   }
 }
 
@@ -41,7 +41,7 @@ export async function logout() {
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error(err.response?.data?.message || "Logout failed.");
+    throw new Error(err.response?.data?.message || "Logout failed.", { cause: err });
   }
 }
 
@@ -51,6 +51,6 @@ export async function getMe() {
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error(err.response?.data?.message || "Session verification failed.");
+    throw new Error(err.response?.data?.message || "Session verification failed.", { cause: err });
   }
 }

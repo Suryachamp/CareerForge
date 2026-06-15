@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import { generateInterviewReport } from "../Services/interview.api";
 import Navbar from "../../../components/Navbar";

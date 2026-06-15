@@ -1,4 +1,3 @@
-import React from 'react'
 import "./index.css";
 import {RouterProvider} from "react-router"
 import { router } from './app.routes.jsx';

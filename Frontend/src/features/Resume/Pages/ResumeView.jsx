@@ -4,20 +4,6 @@ import Navbar from "../../../components/Navbar";
 import { getResume } from "../Services/resume.api";
 
 // 1. LaTeX cleaner for visual preview text sanitization
-const cleanTextForPreview = (text) => {
-  if (typeof text !== "string") return text;
-  return text
-    .replace(/\\%/g, "%")
-    .replace(/\\&/g, "&")
-    .replace(/\\\$/g, "$")
-    .replace(/\\#/g, "#")
-    .replace(/\\_/g, "_")
-    .replace(/\\{/g, "{")
-    .replace(/\\}/g, "}")
-    .replace(/\\textasciitilde\{\}/g, "~")
-    .replace(/\\textasciicircum\{\}/g, "^")
-    .replace(/\\textbackslash\{\}/g, "\\");
-};
 
 // 1b. LaTeX Syntax Highlighter for visual separation of code and content
 const highlightLatex = (code) => {
@@ -253,7 +239,6 @@ const parseSectionContent = (text, formatText) => {
           data: currentSubheading || currentProject || null,
           bullets: currentBullets
         });
-        currentSubheading = null;
         currentProject = null;
         currentBullets = [];
       }
@@ -276,7 +261,6 @@ const parseSectionContent = (text, formatText) => {
           bullets: currentBullets
         });
         currentSubheading = null;
-        currentProject = null;
         currentBullets = [];
       }
       currentProject = {
@@ -657,7 +641,15 @@ const ResumeView = () => {
     setTimeout(() => {
       iframe.contentWindow.focus();
       iframe.contentWindow.print();
-      document.body.removeChild(iframe);
+      
+      // Delay iframe removal on iOS / mobile Safari to prevent blank print dialogs
+      setTimeout(() => {
+        try {
+          document.body.removeChild(iframe);
+        } catch (e) {
+          // Ignore if already removed
+        }
+      }, 2000);
     }, 500);
   };
 
