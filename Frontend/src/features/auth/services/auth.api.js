@@ -6,6 +6,14 @@ const api = axios.create({
   withCredentials: true,
 });
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 // This functions are written to interact with the api from frontend that are created in the backend
 
 export async function register({ username, email, password }) {
